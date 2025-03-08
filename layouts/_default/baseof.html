@@ -74,7 +74,7 @@
     <link rel="me" href="https://mastodon.social/@5calls" />
 
     <!-- prettier-ignore -->
-    {{ hugo.Generator }} {{ $style := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify }}
+    {{ hugo.Generator }} {{ $style := resources.Get "sass/main.scss" | css.Sass | resources.Minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
