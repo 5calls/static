@@ -113,12 +113,23 @@ body {
   }
 }
 
+a:visited {
+  color:orange;
+}
+
 // Utilities
 
 .a-left {
   text-align: left !important;
   margin-left: 0;
   margin-right: 0;
+}
+
+.a-subtle {
+  text-decoration: none;
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+  }
 }
 
 .a-ctr {
