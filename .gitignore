@@ -9,6 +9,7 @@ assets/js/*
 react/build/
 react/node_modules/
 content/issue/*
+content/done/
 react/final/
 static/js/*.js.map
 

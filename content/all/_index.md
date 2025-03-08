@@ -1,3 +1,3 @@
 ---
-title: All topics
+title: All active topics
 ---

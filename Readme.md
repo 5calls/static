@@ -13,8 +13,16 @@ We make certain sections of the site dynamic by injecting small react components
 
 Our goal is to keep the pages fast, publish the info that people read first statically in html so it renders ~immediately and then load any dynamic content in small components on the page afterwards.
 
+
+## First make sure you're using the old node 16
+- Can use a package manager like [nvm](https://github.com/nvm-sh/nvm)
+- Then: `nvm use 16`
+
+
 ## building
 
+- [Install hugo](https://gohugo.io/installation/) if not already installed
+ 
 For development:
 - start hugo with `hugo server`
 - move to react folder with `cd react`
