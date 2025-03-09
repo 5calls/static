@@ -3,20 +3,21 @@
   <div class="g">
     {{ partial "sidebar.html" . }}
     <div class="archive-wrapper">
-      <h1 style="position: relative; top: -0.5rem">All active topics</h1>
-      <div style="display: grid; grid-template-columns: 150px 1fr; row-gap: 2.5rem; column-gap: 2rem">
+      <h1>All active topics</h1>
+      <div class="archive__grid">
         <!-- prettier-ignore -->
         {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
       {{ if eq "categories" $taxonomyname }}
       {{ range $key, $value := $taxonomy }}
-        <h3 style="font-size: 1.5rem; margin-top: 0 !important">{{ .Page.Title }}</h3>
-        <ul style="margin-top:.4rem !important">
+        <h3 class="archive__page-title">{{ .Page.Title }}</h3>
+        <ul>
           {{ range where $value.Pages "Params.hidden" false }}
-          <li>
-            <a href="{{ .Permalink }}" class="a-subtle"> 
-             <div style="display:flex; align-items: flex-start;">
-               <i class="fa fa-square-phone" style="color:#7d9bca63; margin-right: .5rem; line-height:1 !important;"></i><div style="position: relative;top:-.15rem; font-size: 1.15rem; font-weight: bold; color: #023f9fc7;">{{.Title}}</div>
-             </div>
+          <li class="archive__list-item">
+            <a href="{{ .Permalink }}" class="a-subtle">
+              <div class="archive__entry">
+                <i class="fa fa-square-phone archive__phone-icon"></i>
+                <div class="archive__topic-link">{{.Title}}</div>
+              </div>
             </a>
           </li>
           {{ end }}

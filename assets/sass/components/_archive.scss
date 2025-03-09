@@ -16,28 +16,21 @@ body.home {
     }
   }
 }
+.archive .archive-wrapper h1 {
+  font-size: 3rem;
+  margin: -0.5rem 0 2rem 0;
+  text-align: left;
+}
 
 body.archive {
   .archive-wrapper {
-    h1 {
-      font-size: 3rem;
-      margin: 0 0 10px 0;
-      text-align: left;
-    }
-
-    h3 {
-      font-size: 1.6rem;
-      text-align: left;
-      margin: 0.8rem 0 0.4rem 0;
-    }
-
     h4.archive-note {
       background-color: var(--c-latest);
       padding: 8px 12px;
       color: #fff;
       font-size: 1rem;
       border-radius: 8px;
-      margin-bottom: 0.8rem;
+      margin-bottom: 2rem;
 
       i {
         margin-right: 6px;
@@ -47,40 +40,59 @@ body.archive {
         color: var(--c-dark);
       }
     }
+  }
+}
 
-    ul {
-      padding: 0;
-      margin: 0;
+$icon-color: hsla(217, 98%, 32%, 0.3);
+$icon-color-hover: hsla(217, 98%, 32%, 0.5);
+$breakpoint: 76rem;
 
-      li {
-        list-style: none;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+.archive__grid {
+  @media screen and (min-width: $breakpoint) {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    row-gap: 2.5rem;
+    column-gap: 2rem;
+  }
+}
 
-        p {
-          display: inline-block;
-          vertical-align: top;
-          margin: 0.2rem 0 0.4rem 0;
-        }
+.archive__phone-icon {
+  color: $icon-color;
+  margin-right: 0.5rem;
+  vertical-align: top;
+}
 
-        span {
-          position: relative;
-          display: inline-block;
-          border: 2px solid var(--c-blue);
-          border-radius: 50%;
-          width: 1.8rem;
-          height: 1.8rem;
 
-          i {
-            color: var(--c-blue);
-            font-size: 0.85rem;
-            position: absolute;
-            top: 0.375rem;
-            left: 0.375rem;
-            line-height: 1;
-          }
-        }
-      }
+.archive__page-title {
+  text-align: left;
+  font-size: 1.5rem;
+  margin: 2rem 0 1rem 0;
+  overflow-wrap: break-word;
+
+  @media screen and (min-width: $breakpoint) {
+    margin: 0;
+  }
+}
+
+.archive__list-item {
+  margin-left: 0 !important;
+  list-style: none;
+  margin-bottom: 0 !important;
+}
+
+.archive__entry {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  &:hover,
+  &:focus {
+    .archive__phone-icon {
+      color: $icon-color-hover;
     }
   }
+}
+
+.archive__topic-link {
+  font-size: 1.22rem;
+  margin-top: -0.1rem;
 }

@@ -16,6 +16,7 @@
   --c-red-darker: #c62b10;
   --c-red-dark-hover: #97210c;
   --c-blue: rgb(24, 117, 209);
+  --c-blue-subtle: #023e9fc1;
   --c-blue-rgb: 24, 117, 209;
   --c-dark: rgb(2, 63, 159);
   --c-dark-hover: rgb(1, 44, 111);
@@ -125,16 +126,15 @@ a:visited {
   margin-right: 0;
 }
 
-.a-subtle {
-  text-decoration: none;
-  &:hover, &:focus, &:active {
-    text-decoration: underline;
-  }
-}
-
 .a-ctr {
   margin: 0 auto;
   text-align: center !important;
+}
+
+.a-subtle {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--c-blue-subtle);
 }
 
 .sr-only {

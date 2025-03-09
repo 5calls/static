@@ -3,25 +3,29 @@
   <div class="g">
     {{ partial "sidebar.html" . }}
     <div class="archive-wrapper">
-      <h2>Archived topics from a previous session of Congress</h2>
+      <h1>Archived topics from a previous session of Congress</h1>
       <h4 class="archive-note">
-        <i class="fas fa-exclamation-circle"></i>This content is archived and is no longer callable, we've provided
-        this copy to remember the topics that you've called on during prevous Congressional sessions. Head
+        <i class="fas fa-exclamation-circle"></i>This content is archived and is no longer callable, we've provided this
+        copy to remember the topics that you've called on during prevous Congressional sessions. Head
         <a href="/">back to the front page</a> to see current topics to call on.
       </h4>
-      {{ range .Pages.GroupByDate "January 2006" }}
-      <h3>{{ .Key }}</h3>
-      <ul>
-        {{ range .Pages }}
-        <li>
-          <span><i class="fa fa-phone-alt" aria-hidden="true"></i></span>
-          <p>
-            <a href="{{ .Permalink }}">{{.Title}}</a>
-          </p>
-        </li>
+      <div class="archive__grid">
+        {{ range .Pages.GroupByDate "January 2006" }}
+        <h3 class="archive__page-title">{{ .Key }}</h3>
+        <ul>
+          {{ range .Pages }}
+          <li class="archive__list-item">
+            <a href="{{ .Permalink }}" class="a-subtle">
+              <div class="archive__entry">
+                <i class="fa fa-square-phone archive__phone-icon"></i>
+                <div class="archive__topic-link">{{.Title}}</div>
+              </div>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
         {{ end }}
-      </ul>
-      {{ end }}
+      </div>
     </div>
   </div>
 </div>
