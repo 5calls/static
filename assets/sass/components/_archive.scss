@@ -65,12 +65,13 @@ $breakpoint: 76rem;
 
 .archive__page-title {
   text-align: left;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin: 2rem 0 1rem 0;
   overflow-wrap: break-word;
 
   @media screen and (min-width: $breakpoint) {
-    margin: 0;
+    margin: -.1rem 0 0 0;
+    
   }
 }
 
