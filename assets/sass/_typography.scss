@@ -1,10 +1,15 @@
 a {
   color: var(--c-dark);
+  text-decoration: underline;
+  text-underline-offset: .25rem;
+  text-decoration-color: hsla(217, 98%, 32%, 0.25);
+  text-decoration-thickness: 2px;
   &:hover,
   &:active,
   &:focus,
   &:visited {
     color: var(--c-dark);
+    text-decoration-color: hsla(217, 98%, 32%, 0.7);
   }
 }
 

@@ -1,5 +1,6 @@
 .footer {
-  --c-footer: rgba(255, 255, 255, 0.85);
+  --c-footer: rgba(255, 255, 255, 0.8);
+  --c-footer-active: rgba(255, 255, 255, 1);
   background: var(--c-darker);
   color: var(--c-footer);
   padding: 3rem 0;
@@ -11,6 +12,11 @@
 
   a {
     color: var(--c-footer);
+    text-decoration: none;
+    font-weight: bold;
+    &:hover, &:focus, &:active, &:visited {
+      color: var(--c-footer-active);
+    }
   }
 
   .content {
