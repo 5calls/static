@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
-// import $ from "jquery";
+import $ from "jquery";
 
 import Location from "./components/Location";
 import Reps from "./components/Reps";
@@ -20,6 +20,7 @@ import CallCount from "./components/CallCount";
 import APIForm from "./components/APIForm";
 import Settings from "./components/Settings";
 import GroupCallCount from "./components/GroupCallCount";
+import { postSubscriberDistrict } from "./utils/api";
 
 firebase.initializeApp({
   apiKey: "AIzaSyCqbgwuM82Z4a3oBzzmPgi-208UrOwIgAA",
@@ -45,26 +46,46 @@ declare global {
 }
 
 // this is like the latest $(document).ready()
-// $(() => {
-//   $("#actblue").on("click", (e) => {
-//     if (window.actblue && window.actblue.__initialized) {
-//       // double check that actblue has loaded, if it has, prevent that click
-//       e.preventDefault();
+$(() => {
+  // sub_id is the subscriber id from buttondown that we send in emails
+  // if it exists, we want to store it so we can keep district info up to date
+  const urlParams = new URLSearchParams(window.location.search);
+  const subId = urlParams.get('sub_id');
+  
+  if (subId) {
+    localStorage.setItem('sub_id', subId);
+    
+    // Remove sub_id from URL without reloading the page
+    urlParams.delete('sub_id');
+    const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash;
+    window.history.replaceState({}, '', newUrl);
 
-//       // actblue express does not have apple pay support, see if directing apple pay-capable browsers
-//       // to an actblue window makes a difference in donations
-//       if (window.ApplePaySession) {
-//         window.fivecalls.openDonate(25, "applepay")
-//       } else {
-//         window.actblue
-//         .requestContribution({
-//           token: ACTBLUE_EMBED_TOKEN,
-//           refcodes: ["embed",uuid.callerID()],
-//         })
-//       }
-//     }
-//   });
-// });
+    // if there's already a district set, post it to the server
+    const district = localStorage.getItem("district");
+    if (district) {
+      postSubscriberDistrict(subId, district);
+    }
+  }
+  
+  // $("#actblue").on("click", (e) => {
+  //   if (window.actblue && window.actblue.__initialized) {
+  //     // double check that actblue has loaded, if it has, prevent that click
+  //     e.preventDefault();
+
+  //     // actblue express does not have apple pay support, see if directing apple pay-capable browsers
+  //     // to an actblue window makes a difference in donations
+  //     if (window.ApplePaySession) {
+  //       window.fivecalls.openDonate(25, "applepay")
+  //     } else {
+  //       window.actblue
+  //       .requestContribution({
+  //         token: ACTBLUE_EMBED_TOKEN,
+  //         refcodes: ["embed",uuid.callerID()],
+  //       })
+  //     }
+  //   }
+  // });
+});
 
 const handleRootRenderError = (error: any, component: string) => {
   if (`${error}`.includes("Minified React error #200")) {
