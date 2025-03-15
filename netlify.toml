@@ -17,7 +17,7 @@ NODE_OPTIONS = '--unhandled-rejections=strict'
 # don't care about ruby, but the default installs a new version for each build
 RUBY_VERSION = '2.6.2'
 YARN_VERSION = '1.22.5'
-NODE_VERSION = '16'
+NODE_VERSION = '22'
 
 # dunno if we can measure how many clients are still using this old endpoint?
 [[redirects]]

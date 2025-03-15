@@ -12,6 +12,7 @@ content/issue/*
 content/done/
 react/final/
 static/js/*.js.map
+.parcel-cache
 
 # Local Netlify folder
 .netlify
