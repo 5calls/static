@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <title>
       {{ if or (.IsPage) (.IsSection) }}{{ .Title }} ⭑ {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}
     </title>
@@ -82,8 +86,9 @@
     />
 
     {{ $js := resources.Match "js/*.js" }} {{ range $js }}
-    <script type="text/javascript" src="{{ .RelPermalink }}" defer></script>
+    <script type="module" src="{{ .RelPermalink }}" defer></script>
     {{ end }}
+    
     <script src="https://secure.actblue.com/cf/assets/actblue.js" async></script>
     <script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
     <script>

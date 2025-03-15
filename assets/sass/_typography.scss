@@ -30,6 +30,8 @@ h1, .h1 {
   font-size: calc(33rem / var(--base-font-size));
   font-weight: 900;
   margin-bottom: calc(var(--leading) * 1rem);
+  font-family: "Arvo", serif;
+  color: var(--c-red);
 }
 
 h2, .h2 {
@@ -37,6 +39,14 @@ h2, .h2 {
   font-weight: 700;
   margin: calc(var(--leading) * 3rem) auto calc(var(--leading) * 1.5rem);
   max-width: 53rem;
+  
+}
+
+.contact-phone {
+    font-family: "Arvo", serif;
+    a {
+      text-decoration: none !important;
+    }
 }
 
 h3, .h3 {
@@ -110,3 +120,4 @@ ul li {
 i, em {
   font-style: italic;
 }
+

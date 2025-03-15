@@ -1,11 +1,23 @@
 {{ define "bodyclass" }}issue{{ end }} {{ define "main" }}
 <div class="content">
+  
   <div class="g">
+    
     <!-- prettier-ignore -->
     {{ .Scratch.Set "issueId" .Params.issueId }}
     {{ partial "sidebar.html" . }}
 
     <div class="issue-wrapper">
+            <div class="header-donate">
+              <div></div>
+        <a
+          href="https://secure.actblue.com/donate/5calls-donate?refcode=embedfallback&amp;amount=25"
+          id="actblue"
+          class="plausible-event-name=donate-header button button-small icon-l donate"
+          ><i class="fa fa-fw fa-money-bill-wave"></i> Donate</a
+        >
+      </div>
+
       <div class="issue-content">
         <h1>{{ .Title }}</h1>
         {{ .Content }}

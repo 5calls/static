@@ -174,7 +174,7 @@ class Location extends React.Component<Props & WithLocationProps & WithCompleted
       case ComponentLocationState.HasLocation: {
         return (
           <div className="is-visible">
-            <span>Your location is</span>
+            <span>Your location is:</span>
             <strong>{this.props.locationState?.cachedCity || this.props.locationState?.address}</strong>
             <form onSubmit={this.changeLocation}>
               <button className="button-link">Change location</button>

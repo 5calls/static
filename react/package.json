@@ -2,36 +2,33 @@
   "name": "5calls",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "^16.0.0"
-  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.21.0",
     "firebase": "^8.1.2",
-    "glob": "^10.2.7",
+    "glob": "^10.4.5",
     "jquery": "^3.5.1",
+    "parcel": "^2.13.3",
     "querystring": "^0.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-markdown": "^5.0.3",
     "react-onesignal": "^2.0.4",
     "react-phone-number-input": "^3.2.23",
-    "react-scripts": "4.0.0",
     "typescript": "^4.0.3",
     "uuid": "^9.0.0",
     "web-vitals": "^3.1.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+  "source": "src/index.html",
+    "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
     "build-content": "yarn run ts-node -O '{\"module\": \"commonjs\"}' scripts/build-content.ts",
     "build-archives": "yarn run ts-node -O '{\"module\": \"commonjs\"}' scripts/build-archives.ts",
     "build-js": "yarn build && yarn move",
-    "build-js-watch": "node ./scripts/watch-changes.js",
+    "build-js:dev": "NODE_ENV=development node ./scripts/watch-changes.js",
     "move": "node ./scripts/move-built.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": [
@@ -39,24 +36,14 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserlist": [
+    "defaults"
+  ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/fs-extra": "^9.0.4",
-    "@types/jest": "^26.0.15",
     "@types/jquery": "^3.5.5",
     "@types/node": "^12.0.0",
     "@types/node-fetch": "^2.5.7",
@@ -64,7 +51,17 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.11",
     "@types/uuid": "^9.0.2",
+    "babel-jest": "^26.6.0",
+    "eslint": "^7.11.0",
+    "eslint-config-react-app": "^6.0.0",
+    "fs-extra": "^11.3.0",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "26.6.0",
+    "jest-watch-typeahead": "0.6.1",
     "node-fetch": "^2.6.1",
+    "path-browserify": "^1.0.0",
+    "process": "^0.11.10",
+    "querystring-es3": "^0.2.1",
     "ts-node": "^9.0.0"
   }
 }

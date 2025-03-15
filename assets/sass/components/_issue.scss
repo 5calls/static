@@ -1,7 +1,25 @@
 // issue page
 
+.logo {
+  margin-top: 1rem;
+  display: block;
+  margin-left: 2rem;
+  img {
+    height: auto;
+    width: 8rem;
+    display: block
+  }
+}
+.header-donate {
+  display:grid;
+  margin-bottom: 2rem;
+  grid-template-columns: 1fr 8rem;
+
+}
 body.issue {
   .issue-wrapper {
+    margin-top: 1rem;
+    margin-right: 2rem;
     // hide box shadow spillover with overflow:hidden
     overflow: hidden;
     ul {
@@ -32,8 +50,8 @@ body.issue {
 
   .issue-content {
     h1 {
-      font-size: 3rem;
-      font-weight: 700;
+      font-size: 3.2rem;
+      font-weight: 900;
       text-align: left;
       margin: -0.5rem 0 2rem 0;
     }
@@ -49,9 +67,16 @@ body.issue {
     }
 
     blockquote {
-      margin-left: 0;
-      border-left: 0.3rem solid #1875d1;
-      padding-left: 1.2rem;
+    margin-left: 0;
+  background-color: #2994ff0f;
+  padding-left: 1.2rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 2px solid #217fdd;
+  p {
+    margin-bottom: 0;
+  }
     }
   }
 
@@ -67,20 +92,28 @@ body.issue {
 
     ul {
       list-style: none;
+      margin:0;
+      margin-top: 1rem;
       padding: 0;
-      margin: 0;
+      
+     
 
       li {
         list-style: none;
-        margin-bottom: 2px;
-        padding: 4px;
-        height: 50px;
-        background-color: var(--c-xlight-base);
-        border-left: 3px solid var(--c-xlight-base);
-        overflow: hidden;
+        margin-bottom: .5rem;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+   
+      
+        p {
+          margin-bottom: 0 !important;
+        
+        }
 
         &.active {
-          border-left-color: var(--c-blue);
+          border-color: var(--c-dark);
+      background: #5052b61f;
         }
 
         img {
