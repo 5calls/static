@@ -2,7 +2,7 @@ import React from "react";
 
 import { LocationState, LocationContext, WithLocationProps } from "./locationState";
 import Storage from "../utils/storage";
-import { CompletedContext, CompletedState, CompletionMap, WithCompletedProps } from "./completedState";
+import { CompletedContext, CompletedIssueMap, WithCompletedProps } from "./completedState";
 
 interface Props {
   children: React.ReactNode
@@ -10,7 +10,7 @@ interface Props {
 
 interface State {
   locationState?: LocationState;
-  completedState?: CompletedState;
+  completedIssueMap?: CompletedIssueMap;
   savedStateRestored: boolean;
 }
 
@@ -19,6 +19,7 @@ export default class StateProvider extends React.Component<Props, State> {
   state: State = {
     locationState: undefined,
     savedStateRestored: false,
+    completedIssueMap: {}
   };
 
   componentDidMount() {
@@ -39,7 +40,7 @@ export default class StateProvider extends React.Component<Props, State> {
     const appState = Storage.getStorageAsObject();
     this.setState({
       locationState: appState.locationState,
-      completedState: appState.completedState,
+      completedIssueMap: appState.completedIssueMap,
       savedStateRestored: true,
     });
   }
@@ -59,18 +60,17 @@ export default class StateProvider extends React.Component<Props, State> {
     this.setState({ locationState });
   }
 
-  setCompleted(completed: CompletionMap) {
-    Storage.saveCompleted({
-      completed: completed,
-      needsCompletionFetch: false,
-    });
-  }
-
-  setNeedsCompletionFetch(needsRefresh: boolean) {
-    Storage.saveCompleted({
-      completed: this.state.completedState?.completed ?? {},
-      needsCompletionFetch: needsRefresh,
-    });
+  setCompletedIssueMap(updatedCompletedIssueMap: CompletedIssueMap) {
+    const newCompletedIssueMap = {
+      ...this.state.completedIssueMap,
+      ...updatedCompletedIssueMap,
+    }
+    Storage.saveCompleted(
+      newCompletedIssueMap
+    );
+    this.setState({
+      completedIssueMap: newCompletedIssueMap
+    })
   }
 
   render(): React.ReactNode {
@@ -89,9 +89,8 @@ export default class StateProvider extends React.Component<Props, State> {
       >
         <CompletedContext.Provider
           value={{
-            completed: this.state.completedState,
-            setCompleted: (completed: CompletionMap) => this.setCompleted(completed),
-            setNeedsCompletionFetch: (needsRefresh: boolean) => this.setNeedsCompletionFetch(needsRefresh),
+            completedIssueMap: this.state.completedIssueMap || {},
+            setCompletedIssueMap: (issueMapUpdates: CompletedIssueMap) => this.setCompletedIssueMap(issueMapUpdates),
           }}
         >
           {this.props.children}
@@ -115,12 +114,11 @@ export const withCompleted = <P extends object>(
   Component: React.ComponentType<P>
 ): React.FC<Omit<P, keyof WithCompletedProps>> => (props) => (
   <CompletedContext.Consumer>
-    {({ completed, setCompleted, setNeedsCompletionFetch }) => (
+    {({ completedIssueMap, setCompletedIssueMap }) => (
       <Component
         {...(props as P)}
-        completed={completed}
-        setCompleted={setCompleted}
-        setNeedsCompletionFetch={setNeedsCompletionFetch}
+        completedIssueMap={completedIssueMap}
+        setCompletedIssueMap={setCompletedIssueMap}
       />
     )}
   </CompletedContext.Consumer>

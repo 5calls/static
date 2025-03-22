@@ -32,11 +32,17 @@ body.issue {
 
   .issue-content {
     h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      text-align: left;
-      margin: -0.5rem 0 2rem 0;
-    }
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: left;
+        margin: -0.5rem 0 2rem 0;
+    
+        @media screen and (min-width: $bp-medium) {
+          font-size: 3rem;
+    
+        }
+    
+      }
 
     p,
     li,

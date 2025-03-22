@@ -23,7 +23,7 @@
     @extend .shared-btn-styles;
     color: var(--c-blue)  !important;
     background: var(--c-transparent-blue) !important;
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -189,15 +189,6 @@
   display: block;
   margin-right: var(--i-bar-check-margin);
   position: relative;
-  transition: transform 0.15s ease-out;
-
-  .i-bar-item:hover & {
-    transform: scale(1.12);
-  }
-
-  .i-bar-item:active & {
-    transform: scale(1.05);
-  }
 
   i {
     color: #fff;
@@ -282,29 +273,34 @@
 
   .i-bar-item.is-active {
     background: rgba(var(--c-#{$status}-rgb), 0.05);
+    strong {
+      font-weight: bold;
+      color: var(--c-dark)
+    }
+    
   }
 
-  .i-bar-item.is-#{$status} {
-    --check-color: rgba(var(--c-#{$status}-rgb), 0.8);
-
-    &:hover,
-    &:focus {
-      background: rgba(var(--c-#{$status}-rgb), 0.05);
-    }
-
-    .i-bar-check-initial {
-      background: var(--check-color);
-    }
-
-    .i-bar-check-completed,
-    .i-bar-check-percent {
-      border: 2px solid var(--check-color);
-
-      i {
-        color: var(--check-color);
+    .i-bar-item.is-#{$status} {
+      --check-color: rgba(var(--c-#{$status}-rgb), 0.8);
+  
+      &:hover,
+      &:focus {
+        background: rgba(var(--c-#{$status}-rgb), 0.05);
       }
-    }
-
+  
+      .i-bar-check-initial {
+        background: var(--c-success);
+      }
+  
+      .i-bar-check-completed,
+      .i-bar-check-percent {
+        border: 2px solid var(--check-color);
+  
+        i {
+          color: var(--check-color);
+  
+        }
+      }
     circle {
       fill: var(--check-color);
     }

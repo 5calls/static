@@ -76,10 +76,11 @@ class Reps extends React.Component<Props & WithLocationProps & WithCompletedProp
           group: this.props.callingGroup,
         };
         postOutcomeData(outcomeData);
-        this.props.setNeedsCompletionFetch(true);
       }
 
-      if (this.state.activeContactIndex < contacts.length - 1) {
+      const isFinished = this.state.activeContactIndex >= contacts.length - 1
+
+      if (!isFinished) {
         const activeContactIndex = this.state.activeContactIndex + 1;
         this.setState({ activeContactIndex });
         this.reportUpdatedActiveContact(contacts[activeContactIndex]);
@@ -87,11 +88,15 @@ class Reps extends React.Component<Props & WithLocationProps & WithCompletedProp
           .getElementById("reps-header")
           ?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
       } else {
-          // if we load the next page too soon, the previous outcome is sometimes skipped
-          // 300ms is something arbitrary I picked
-          setTimeout(() => {
-            window.location.pathname = window.location.pathname + "/done/";
-          }, 300);
+        this.props.setCompletedIssueMap({
+          [this.state.issueId]: Date.now()
+        })
+        
+        // if we load the next page too soon, the previous outcome is sometimes skipped
+        // 300ms is something arbitrary I picked
+        setTimeout(() => {
+          window.location.pathname = window.location.pathname + "/done/";
+        }, 300);
       }
     });
   }
@@ -171,17 +176,17 @@ class Reps extends React.Component<Props & WithLocationProps & WithCompletedProp
     if (!this.state.contactList || !this.props.locationState?.address) {
       return (
         <div ref={this.componentRef}>
-        <ul >
-          <li>
-            <img alt="No representative found" src="/images/no-rep.png" />
-            <h4>No reps available</h4>
-            <p>Please set your location to find your representatives</p>
-          </li>
-        </ul>
+          <ul >
+            <li>
+              <img alt="No representative found" src="/images/no-rep.png" />
+              <h4>No reps available</h4>
+              <p>Please set your location to find your representatives</p>
+            </li>
+          </ul>
         </div>
       );
     }
-    
+
     const contacts = this.contactsForArea(this.state.areas, this.state.contactList);
     let activeContact: Contact | undefined;
     if (contacts.length > 0) {

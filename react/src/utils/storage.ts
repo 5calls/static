@@ -1,36 +1,34 @@
 import { LocationState } from "../state/locationState";
 import { ApplicationState } from "../state/appState";
-import { CompletedState } from "../state/completedState";
+import { CompletedIssueMap,  } from "../state/completedState";
 
-const LocalStorageKey = "persist:fivecalls";
+const LOCATION_KEY = "persist:fivecalls";
+const COMPLETION_KEY = 'persist:fivecalls-completedIssueMap';
 
 const saveLocation = (location: LocationState) => {
-  const storage = getStorageAsObject();
 
   const newStoredData: StoredData = {
     locationState: JSON.stringify(location),
-    completedState: JSON.stringify(storage.completedState),
-  };
-  localStorage.setItem(LocalStorageKey, JSON.stringify(newStoredData));
+}
+  localStorage.setItem(LOCATION_KEY, JSON.stringify(newStoredData));
 };
 
-const saveCompleted = (completed: CompletedState) => {
-  const storage = getStorageAsObject();
-
-  const newStoredData: StoredData = {
-    locationState: JSON.stringify(storage.locationState),
-    completedState: JSON.stringify(completed),
-  };
-  localStorage.setItem(LocalStorageKey, JSON.stringify(newStoredData));
+const saveCompleted = (completedIssueMap: CompletedIssueMap) => {
+  localStorage.setItem(COMPLETION_KEY, JSON.stringify(completedIssueMap));
 };
 
 const getStorageAsObject = (): ApplicationState => {
-  const storageString = localStorage.getItem(LocalStorageKey) ?? "{}";
-  const data: StoredData = JSON.parse(storageString) as StoredData;
-  const locationState = JSON.parse(data.locationState ?? "{}") as LocationState;
-  const completedState = JSON.parse(data.completedState ?? "{}") as CompletedState;
+  const getStoredState = <T>(key: string): T => {
+    const storageString = localStorage.getItem(key) ?? "{}";
+    return JSON.parse(storageString) as T;
+  };
 
-  const appState: ApplicationState = { locationState: locationState, completedState: completedState };
+  const locationData: StoredData = getStoredState<StoredData>(LOCATION_KEY);
+  const locationState = JSON.parse(locationData.locationState ?? "{}") as LocationState;
+
+  const completedIssueMap = getStoredState<StoredData>(COMPLETION_KEY) as CompletedIssueMap;
+
+  const appState: ApplicationState = { locationState, completedIssueMap };
   return appState;
 };
 
@@ -44,7 +42,7 @@ interface StoredData {
 
 interface Storage {
   saveLocation(location: LocationState): void;
-  saveCompleted(completed: CompletedState): void;
+  saveCompleted(completed: CompletedIssueMap): void;
   getStorageAsObject(): ApplicationState;
 }
 

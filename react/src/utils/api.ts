@@ -9,7 +9,6 @@ import { ContactList } from "../common/models/contactList";
 import * as Constants from "../common/constants";
 import { OutcomeData } from "../common/models/contactEvent";
 import { UserCallDetails } from "../common/models/userStats";
-import { CompletionMap } from "../state/completedState";
 import uuid from "./uuid";
 
 const prepareHeaders = async (): Promise<Headers> => {
@@ -120,26 +119,6 @@ export const postOutcomeData = async (data: OutcomeData) => {
       return Promise.resolve(null);
     })
     .catch((e) => Promise.reject(e));
-};
-
-interface CompletedIssuesResponse {
-  completed: CompletionMap;
-}
-
-export const getCompletedIssues = async (): Promise<CompletionMap> => {
-  const headers = await prepareHeaders();
-
-  return axios
-    .get<CompletedIssuesResponse>(`${Constants.COMPLETED_API_URL}`, {
-      headers: headers,
-    })
-    .then((result) => {
-      return Promise.resolve(result.data.completed);
-    })
-    .catch((error) => {
-      console.error("couldn't get completed issues", error);
-      return Promise.reject(error);
-    });
 };
 
 export const getUserCallDetails = (idToken: string) => {

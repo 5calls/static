@@ -1,20 +1,15 @@
 import React from "react";
 
-export type CompletionMap = { [issueID: number]: number };
+// where the value is the timestamp of when the issue was completed
+export type CompletedIssueMap = { [issueID: number]: number };
 
-export const CompletedContext = React.createContext<WithCompletedProps>({
-  completed: undefined,
-  setCompleted: () => {},
-  setNeedsCompletionFetch: () => {},
+export const CompletedContext = React.createContext({
+  completedIssueMap: {} as CompletedIssueMap,
+  setCompletedIssueMap: () => {
+  },
 });
 
-export interface CompletedState {
-  needsCompletionFetch: boolean;
-  completed: CompletionMap;
-}
-
 export type WithCompletedProps = {
-  completed?: CompletedState;
-  setCompleted(completed: CompletionMap): void;
-  setNeedsCompletionFetch(needsRefresh: boolean): void;
+  completedIssueMap?: CompletedIssueMap;
+  setCompletedIssueMap(completedIssueMap: CompletedIssueMap): void;
 };
