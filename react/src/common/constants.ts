@@ -35,3 +35,5 @@ export const contact = {
   facebook: 'https://www.facebook.com/make5calls',
   apps: 'https://crgj.app.link/7R2bEB0R4F'
 };
+
+export const USER_ID_TOKEN_KEY = `userIdToken`;

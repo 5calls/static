@@ -10,9 +10,19 @@ import * as Constants from '../common/constants';
 import { OutcomeData } from '../common/models/contactEvent';
 import { UserCallDetails } from '../common/models/userStats';
 import uuid from './uuid';
+import { setToLocalStorage } from './localStorage';
 
 const prepareHeaders = async (): Promise<Headers> => {
-  const idToken = await firebase.auth().currentUser?.getIdTokenResult();
+  const localStorageIdToken = localStorage.getItem(Constants.USER_ID_TOKEN_KEY);
+  const idToken = localStorageIdToken
+    ? localStorageIdToken
+    : await firebase.auth().currentUser?.getIdTokenResult();
+  if (idToken && !localStorageIdToken) {
+    setToLocalStorage(
+      Constants.USER_ID_TOKEN_KEY,
+      idToken ? idToken.token : null
+    );
+  }
 
   const headers: Headers = {
     'Content-Type': 'application/json; charset=utf-8'
