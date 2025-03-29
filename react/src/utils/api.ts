@@ -68,7 +68,15 @@ export const getContacts = async (
       contactList.state = result.data.state;
       contactList.district = result.data.district;
       if (contactList.generalizedLocationID() !== '-') {
-        OneSignal.sendTag('districtID', contactList.generalizedLocationID());
+        const locationId = contactList.generalizedLocationID();
+        OneSignal.sendTag('districtID', locationId);
+        localStorage.setItem('district', locationId);
+
+        // if there's a sub_id in local storage, post it to the server since we've updated the district
+        const subId = localStorage.getItem('sub_id');
+        if (subId) {
+          postSubscriberDistrict(subId, locationId);
+        }
       }
       return Promise.resolve(contactList);
     })
@@ -187,6 +195,21 @@ export const postAPIEmail = (email: string): Promise<boolean> => {
   });
   return axios
     .post(Constants.API_TOKEN_URL, postData)
+    .then(() => Promise.resolve(true))
+    .catch((e) => Promise.reject(e));
+};
+
+export const postSubscriberDistrict = (
+  sub_id: string,
+  district: string
+): Promise<boolean> => {
+  const postData = querystring.stringify({
+    subscriber: sub_id,
+    district: district,
+    cid: uuid.callerID()
+  });
+  return axios
+    .post(Constants.UPDATE_DISTRICT_API_URL, postData, {})
     .then(() => Promise.resolve(true))
     .catch((e) => Promise.reject(e));
 };
