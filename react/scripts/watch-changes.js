@@ -5,7 +5,7 @@ const path = require('path');
 const directoryPath = path.join(__dirname, '..', 'src');
 
 const buildAndMoveFiles = () => {
-  exec('yarn parcel build --no-optimize && yarn move', (error, stdout, stderr) => {
+  exec('yarn parcel build && yarn move', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing command: ${error}`);
       return;

@@ -10,6 +10,7 @@ import { getContacts, postOutcomeData } from '../utils/api';
 import ContactUtils from '../utils/contactUtils';
 import ActiveContact from './ActiveContact';
 import { useSettings } from '../utils/useSettings';
+import { toast, ToastPosition } from 'react-toastify';
 
 interface Props {
   callingGroup?: string;
@@ -21,6 +22,13 @@ interface State {
   contactList: ContactList | undefined;
   activeContactIndex: number;
 }
+
+const TOAST_SETTINGS = {
+  autoClose: 2000,
+  position: 'top-right' as ToastPosition,
+  hideProgressBar: true,
+  className: 'Toastify__toast--small'
+};
 
 const RepsWithSettings = (
   props: Props & WithLocationProps & WithCompletedProps
@@ -35,7 +43,7 @@ class Reps extends React.Component<
 > {
   _defaultAreas: string[] = [];
   _defaultContactList: ContactList | undefined = undefined;
-  private callingGroup: string = '';
+
   private componentRef = createRef<HTMLDivElement>();
   state = {
     areas: this._defaultAreas,
@@ -68,14 +76,14 @@ class Reps extends React.Component<
         this.state.contactList ?? ({} as ContactList)
       );
 
+      let currentContact: Contact | undefined;
+      if (contacts.length >= this.state.activeContactIndex) {
+        currentContact = contacts[this.state.activeContactIndex];
+      }
+
       if (outcome !== 'skip') {
         const viaParameter =
           window.location.host === '5calls.org' ? 'web' : 'test';
-
-        let currentContact: Contact | undefined;
-        if (contacts.length >= this.state.activeContactIndex) {
-          currentContact = contacts[this.state.activeContactIndex];
-        }
 
         const outcomeData: OutcomeData = {
           outcome: outcome,
@@ -92,6 +100,38 @@ class Reps extends React.Component<
       if (!isFinished) {
         const activeContactIndex = this.state.activeContactIndex + 1;
         this.setState({ activeContactIndex });
+        const remainingCalls =
+          contacts.length - this.state.activeContactIndex - 1;
+        if (!(outcome === 'contact' || outcome === 'voicemail')) {
+          toast.info(
+            <div>
+              <div>
+                {outcome === 'skip' ? 'Skipped' : 'Unable to contact'}{' '}
+                {currentContact?.name}.
+              </div>
+              <div>
+                You have{' '}
+                <b>
+                  {remainingCalls} call{remainingCalls > 1 ? 's' : ''} left.
+                </b>
+              </div>
+            </div>,
+            TOAST_SETTINGS
+          );
+        } else {
+          toast.success(
+            <div>
+              <div>Contacted {currentContact?.name}!</div>
+              <div>
+                You have{' '}
+                <b>
+                  {remainingCalls} call{remainingCalls > 1 ? 's' : ''} left.
+                </b>
+              </div>
+            </div>,
+            TOAST_SETTINGS
+          );
+        }
         this.reportUpdatedActiveContact(contacts[activeContactIndex]);
         document.getElementById('reps-header')?.scrollIntoView({
           behavior: 'smooth',

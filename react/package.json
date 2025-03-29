@@ -15,6 +15,7 @@
     "react-markdown": "^8.0.0",
     "react-onesignal": "^2.0.4",
     "react-phone-number-input": "^3.4.12",
+    "react-toastify": "^11.0.5",
     "typescript": "^5.0.0",
     "uuid": "^11.1.0",
     "web-vitals": "^4.2.4"

@@ -19,6 +19,7 @@ import APIForm from './components/APIForm';
 import Settings from './components/Settings';
 import GroupCallCount from './components/GroupCallCount';
 import Bugsnag from '@bugsnag/js';
+import { Slide, ToastContainer } from 'react-toastify';
 
 Bugsnag.start('67e3931dbe1bbf48991ce7d682ceb676');
 
@@ -139,6 +140,12 @@ const startComponentRenders = () => {
       id: 'react-groupcounts',
       component: GroupCallCount,
       condition: Boolean(getGroupFromPath())
+    },
+    {
+      id: 'toast-container',
+      component: () => (
+        <ToastContainer position="top-center" draggable transition={Slide} />
+      )
     }
   ];
 
@@ -148,7 +155,10 @@ const startComponentRenders = () => {
         return;
       }
       const element = document.getElementById(id);
-      if (!element) return;
+      if (!element) {
+        return;
+      }
+
       const el = React.createElement(component);
       if (hasStateProvider) {
         createRoot(element).render(<StateProvider>{el}</StateProvider>);

@@ -44,6 +44,12 @@
   @media screen and (min-width: 60rem) {
     --g-gap: 3rem;
   }
+
+  --toastify-toast-width: 500px;
+  --toastify-color-success: var(--c-success);
+  --toastify-color-error: var(--c-red);
+  --toastify-color-dark: var(--c-base);
+  --toastify-color-info: var(--c-blue);
 }
 
 
@@ -142,4 +148,12 @@ body {
 
 .sr-only {
   font-size: 1px;
+}
+
+.Toastify__toast {
+  font-size: 1rem;
+}
+
+.Toastify__toast--small {
+  max-width: 380px !important;
 }
