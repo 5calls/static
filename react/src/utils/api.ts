@@ -37,6 +37,7 @@ interface ContactResponse {
   lowAccuracy: boolean;
   state: string;
   district: string;
+  isSplit: boolean;
   representatives: Contact[];
 }
 
@@ -68,6 +69,7 @@ export const getContacts = async (
       contactList.representatives = result.data.representatives;
       contactList.state = result.data.state;
       contactList.district = result.data.district;
+      contactList.isSplit = result.data.isSplit;
       if (contactList.generalizedLocationID() !== '-') {
         const districtId = contactList.generalizedLocationID();
         OneSignal.sendTag('districtID', districtId);
