@@ -15,11 +15,13 @@ export class ContactList {
   public lowAccuracy: boolean;
   public state: string;
   public district: string;
+  public isSplit: boolean;
   public representatives: Contact[];
 
   constructor() {
     this.location = '';
     this.lowAccuracy = false;
+    this.isSplit = false;
     this.state = '';
     this.district = '';
     this.representatives = [];

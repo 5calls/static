@@ -11,7 +11,13 @@
         {{ .Content }}
       </div>
       <div class="reps">
+        {{if .Params.isSplit}}
+        <p class="help">
+          Note: The zip code provided is split between multiple districts.  For the most accurate list of contacts, please provide the full 9 digit zip code.
+        </p>
+        {{ end }}
         <h3 id="reps-header">Contacts for this topic:</h3>
+
         <div
           class="rep-list"
           id="react-reps"
